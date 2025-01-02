@@ -1,0 +1,1127 @@
+basePath: /
+definitions:
+  model.AddBillResponse:
+    properties:
+      id:
+        type: integer
+      images_comment:
+        $ref: '#/definitions/model.StringList'
+      third_party_id:
+        type: string
+    type: object
+  model.AppVersion:
+    properties:
+      app_name:
+        type: string
+      appid:
+        type: string
+      can_hide:
+        type: boolean
+      changelog:
+        type: string
+      created_at:
+        $ref: '#/definitions/mytime.CustomTime'
+      download_url:
+        type: string
+      is_force:
+        type: boolean
+      updated_at:
+        $ref: '#/definitions/mytime.CustomTime'
+      version_code:
+        type: integer
+      version_name:
+        type: string
+    type: object
+  model.Bill:
+    properties:
+      amount:
+        type: integer
+      category:
+        type: string
+      comment:
+        type: string
+      created_at:
+        $ref: '#/definitions/mytime.CustomTime'
+      date:
+        $ref: '#/definitions/mytime.CustomTime'
+      datetime:
+        $ref: '#/definitions/mytime.CustomTime'
+      deleted_at:
+        $ref: '#/definitions/mytime.CustomNullTime'
+      id:
+        type: integer
+      images_comment:
+        $ref: '#/definitions/model.StringList'
+      name:
+        type: string
+      third_party_id:
+        type: string
+      transaction_partner:
+        type: string
+      type:
+        type: string
+      updated_at:
+        $ref: '#/definitions/mytime.CustomTime'
+      username:
+        type: string
+    type: object
+  model.ChangePasswordParameters:
+    properties:
+      newPassword:
+        type: string
+      oldPassword:
+        type: string
+      username:
+        type: string
+    type: object
+  model.JsonResponse-any:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  model.JsonResponse-array_model_AddBillResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/model.AddBillResponse'
+        type: array
+      msg:
+        type: string
+    type: object
+  model.JsonResponse-array_model_Bill:
+    properties:
+      code:
+        type: integer
+      data:
+        items:
+          $ref: '#/definitions/model.Bill'
+        type: array
+      msg:
+        type: string
+    type: object
+  model.JsonResponse-model_AppVersion:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/model.AppVersion'
+      msg:
+        type: string
+    type: object
+  model.JsonResponse-model_UserInfoReadOnly:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/model.UserInfoReadOnly'
+      msg:
+        type: string
+    type: object
+  model.JsonResponse-string:
+    properties:
+      code:
+        type: integer
+      data:
+        type: string
+      msg:
+        type: string
+    type: object
+  model.LoginParameters:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  model.RegistrationParameters:
+    properties:
+      code:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - code
+    - password
+    - username
+    type: object
+  model.ResetPasswordParameters:
+    properties:
+      code:
+        type: string
+      newPassword:
+        type: string
+      username:
+        type: string
+    required:
+    - code
+    - newPassword
+    - username
+    type: object
+  model.StringList:
+    properties:
+      values:
+        items:
+          type: string
+        type: array
+    type: object
+  model.UseCodeLoginParameters:
+    properties:
+      code:
+        type: string
+      username:
+        type: string
+    required:
+    - code
+    - username
+    type: object
+  model.UserInfo:
+    properties:
+      avatar:
+        type: string
+      campus:
+        type: string
+      campusAddress:
+        type: string
+      campusID:
+        type: string
+      nickname:
+        type: string
+      school:
+        type: string
+      schoolID:
+        type: integer
+    type: object
+  model.UserInfoReadOnly:
+    properties:
+      avatar:
+        type: string
+      campus:
+        type: string
+      campusAddress:
+        type: string
+      campusID:
+        type: string
+      email:
+        type: string
+      isHorseman:
+        type: boolean
+      nickname:
+        type: string
+      phone:
+        type: string
+      school:
+        type: string
+      schoolID:
+        type: integer
+      username:
+        type: string
+    type: object
+  model.VerificationParameters:
+    properties:
+      codeType:
+        type: string
+      phoneOrEmail:
+        type: string
+    required:
+    - codeType
+    - phoneOrEmail
+    type: object
+  mytime.CustomNullTime:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  mytime.CustomTime:
+    properties:
+      time.Time:
+        type: string
+    type: object
+  openai.ChatCompletionChoice:
+    properties:
+      finish_reason:
+        allOf:
+        - $ref: '#/definitions/openai.FinishReason'
+        description: |-
+          FinishReason
+          stop: API returned complete message,
+          or a message terminated by one of the stop sequences provided via the stop parameter
+          length: Incomplete model output due to max_tokens parameter or token limit
+          function_call: The model decided to call a function
+          content_filter: Omitted content due to a flag from our content filters
+          null: API response still in progress or incomplete
+      index:
+        type: integer
+      message:
+        $ref: '#/definitions/openai.ChatCompletionMessage'
+    type: object
+  openai.ChatCompletionMessage:
+    properties:
+      content:
+        type: string
+      function_call:
+        $ref: '#/definitions/openai.FunctionCall'
+      name:
+        description: |-
+          This property isn't in the official documentation, but it's in
+          the documentation for the official library for python:
+          - https://github.com/openai/openai-python/blob/main/chatml.md
+          - https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
+        type: string
+      role:
+        type: string
+    type: object
+  openai.ChatCompletionRequest:
+    properties:
+      frequency_penalty:
+        type: number
+      function_call: {}
+      functions:
+        items:
+          $ref: '#/definitions/openai.FunctionDefinition'
+        type: array
+      logit_bias:
+        additionalProperties:
+          type: integer
+        description: |-
+          LogitBias is must be a token id string (specified by their token ID in the tokenizer), not a word string.
+          incorrect: `"logit_bias":{"You": 6}`, correct: `"logit_bias":{"1639": 6}`
+          refs: https://platform.openai.com/docs/api-reference/chat/create#chat/create-logit_bias
+        type: object
+      max_tokens:
+        type: integer
+      messages:
+        items:
+          $ref: '#/definitions/openai.ChatCompletionMessage'
+        type: array
+      model:
+        type: string
+      "n":
+        type: integer
+      presence_penalty:
+        type: number
+      stop:
+        items:
+          type: string
+        type: array
+      stream:
+        type: boolean
+      temperature:
+        type: number
+      top_p:
+        type: number
+      user:
+        type: string
+    type: object
+  openai.ChatCompletionResponse:
+    properties:
+      choices:
+        items:
+          $ref: '#/definitions/openai.ChatCompletionChoice'
+        type: array
+      created:
+        type: integer
+      id:
+        type: string
+      model:
+        type: string
+      object:
+        type: string
+      usage:
+        $ref: '#/definitions/openai.Usage'
+    type: object
+  openai.FinishReason:
+    enum:
+    - stop
+    - length
+    - function_call
+    - content_filter
+    - "null"
+    type: string
+    x-enum-varnames:
+    - FinishReasonStop
+    - FinishReasonLength
+    - FinishReasonFunctionCall
+    - FinishReasonContentFilter
+    - FinishReasonNull
+  openai.FunctionCall:
+    properties:
+      arguments:
+        description: call function with arguments in JSON format
+        type: string
+      name:
+        type: string
+    type: object
+  openai.FunctionDefinition:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      parameters:
+        description: |-
+          Parameters is an object describing the function.
+          You can pass json.RawMessage to describe the schema,
+          or you can pass in a struct which serializes to the proper JSON schema.
+          The jsonschema package is provided for convenience, but you should
+          consider another specialized library if you require more complex schemas.
+    type: object
+  openai.Model:
+    properties:
+      created:
+        type: integer
+      id:
+        type: string
+      object:
+        type: string
+      owned_by:
+        type: string
+      parent:
+        type: string
+      permission:
+        items:
+          $ref: '#/definitions/openai.Permission'
+        type: array
+      root:
+        type: string
+    type: object
+  openai.Permission:
+    properties:
+      allow_create_engine:
+        type: boolean
+      allow_fine_tuning:
+        type: boolean
+      allow_logprobs:
+        type: boolean
+      allow_sampling:
+        type: boolean
+      allow_search_indices:
+        type: boolean
+      allow_view:
+        type: boolean
+      created:
+        type: integer
+      group: {}
+      id:
+        type: string
+      is_blocking:
+        type: boolean
+      object:
+        type: string
+      organization:
+        type: string
+    type: object
+  openai.Price:
+    properties:
+      unit:
+        type: string
+      values: {}
+    type: object
+  openai.Usage:
+    properties:
+      completion_tokens:
+        type: integer
+      prompt_tokens:
+        type: integer
+      total_tokens:
+        type: integer
+    type: object
+host: 127.0.0.1:10010
+info:
+  contact:
+    email: weilizan71@outlook.com
+    name: API Support
+    url: https://github.com/wilinz/EazyWrite
+  description: 简单记账后端接口
+  termsOfService: https://github.com/wilinz/EazyWrite
+  title: 简单记账 API
+  version: "1.0"
+paths:
+  /account/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户的个人信息
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.JsonResponse-model_UserInfoReadOnly'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: 获取用户信息
+      tags:
+      - Account
+    put:
+      consumes:
+      - application/json
+      description: 更新用户的个人信息
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: 用户信息
+        in: body
+        name: info
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: 更新用户信息
+      tags:
+      - Account
+  /account/login:
+    post:
+      consumes:
+      - application/json
+      description: Handles user login with username and password
+      parameters:
+      - description: Login Request
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginParameters'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Set-Cookie:
+              description: session-key=<session_key>; Path=/
+              type: string
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Login
+      tags:
+      - Account
+  /account/login_with_code:
+    post:
+      consumes:
+      - application/json
+      description: Handles user login with verification code
+      parameters:
+      - description: Login With Code Request
+        in: body
+        name: loginWithCodeRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.UseCodeLoginParameters'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Set-Cookie:
+              description: session-key=<session_key>; Path=/
+              type: string
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Login with verification code
+      tags:
+      - Account
+  /account/logout:
+    delete:
+      description: Handles user logout
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Logout
+      tags:
+      - Account
+  /account/password/change:
+    put:
+      consumes:
+      - application/json
+      description: Handles password change for a user
+      parameters:
+      - description: Change Password Request
+        in: body
+        name: changePasswordRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.ChangePasswordParameters'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Change Password
+      tags:
+      - Account
+  /account/password/reset:
+    put:
+      consumes:
+      - application/json
+      description: Handles password reset for a user
+      parameters:
+      - description: Reset Password Request
+        in: body
+        name: resetPasswordRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.ResetPasswordParameters'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Reset Password
+      tags:
+      - Account
+  /account/register:
+    post:
+      consumes:
+      - application/json
+      description: Handles user registration
+      parameters:
+      - description: Registration Request
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegistrationParameters'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Register
+      tags:
+      - Account
+  /account/verify:
+    post:
+      consumes:
+      - application/json
+      description: Handles sending verification code to the user
+      parameters:
+      - description: Verification Code Request
+        in: body
+        name: verificationCodeRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.VerificationParameters'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-string'
+      summary: Verification Code
+      tags:
+      - Account
+  /app_version:
+    get:
+      consumes:
+      - application/json
+      description: 根据应用ID获取最新的应用版本信息
+      parameters:
+      - description: 应用ID
+        in: query
+        name: appid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.JsonResponse-model_AppVersion'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: 获取应用版本信息
+      tags:
+      - AppVersion
+  /bill:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a bill by ID
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: ID of the bill to be deleted
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a bill
+      tags:
+      - Bill
+    get:
+      consumes:
+      - application/json
+      description: Get a list of bills
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: Limit the number of results
+        in: query
+        name: limit
+        type: integer
+      - description: Offset for pagination
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-array_model_Bill'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: Get bills
+      tags:
+      - Bill
+    post:
+      consumes:
+      - application/json
+      description: Add a new bill
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: Bill object to be added
+        in: body
+        name: bill
+        required: true
+        schema:
+          $ref: '#/definitions/model.Bill'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-array_model_AddBillResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      security:
+      - ApiKeyAuth: []
+      summary: Add a bill
+      tags:
+      - Bill
+    put:
+      consumes:
+      - application/json
+      description: Update an existing bill
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: Updated bill object
+        in: body
+        name: bill
+        required: true
+        schema:
+          $ref: '#/definitions/model.Bill'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-array_model_AddBillResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a bill
+      tags:
+      - Bill
+  /bill/list:
+    post:
+      consumes:
+      - application/json
+      description: Add multiple bills at once
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: List of bills to be added
+        in: body
+        name: bills
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/model.Bill'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-array_model_AddBillResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      security:
+      - ApiKeyAuth: []
+      summary: Add a list of bills
+      tags:
+      - Bill
+  /feedback:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 处理用户提交的反馈信息
+      parameters:
+      - in: formData
+        name: '-'
+        type: string
+      - in: formData
+        name: feedback
+        type: string
+      - in: formData
+        name: id
+        type: integer
+      - in: formData
+        name: label
+        type: string
+      - in: formData
+        name: phone
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.JsonResponse-any'
+      summary: 提交反馈
+  /openai/v1/audio/transcriptions:
+    post:
+      description: Transcribe audio to text
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: Audio file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Audio transcriptions
+      tags:
+      - OpenAI
+  /openai/v1/audio/translations:
+    post:
+      description: Translate audio from one language to another
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: Audio file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Audio translations
+      tags:
+      - OpenAI
+  /openai/v1/chat/completions:
+    post:
+      consumes:
+      - application/json
+      description: Generate completions for a given prompt
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      - description: Chat completion request object
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/openai.ChatCompletionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/openai.ChatCompletionResponse'
+      summary: Chat completions
+      tags:
+      - OpenAI
+  /openai/v1/images/edits:
+    post:
+      consumes:
+      - application/json
+      description: Edit images based on a given prompt
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Images edits
+      tags:
+      - OpenAI
+  /openai/v1/images/variations:
+    post:
+      consumes:
+      - application/json
+      description: Generate variations of images based on a given prompt
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Images variations
+      tags:
+      - OpenAI
+  /openai/v1/models:
+    get:
+      description: Get a list of available models
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/openai.Model'
+            type: array
+      summary: List models
+      tags:
+      - OpenAI
+  /openai/v1/prices:
+    get:
+      description: Get the pricing details for OpenAI services
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/openai.Price'
+      summary: Get prices
+      tags:
+      - OpenAI
+  /textin/ai/service/v1/crop_enhance_image:
+    post:
+      description: Crop enhance image
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Crop enhance image
+      tags:
+      - Textin
+  /textin/ai/service/v1/dewarp:
+    post:
+      description: dewarp
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: dewarp
+      tags:
+      - Textin
+  /textin/robot/v1.0/api/bills_crop:
+    post:
+      description: Bills crop
+      parameters:
+      - description: Cookie
+        in: header
+        name: cookie
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Bills crop
+      tags:
+      - Textin
+swagger: "2.0"
