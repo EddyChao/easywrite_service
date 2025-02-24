@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: easy-write-service-mariadb
+    restart: always
+#    ports:
+#      - "33066:3306"
+    environment:
+      MYSQL_DATABASE: easy-write
+      MYSQL_USER: easy-write
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+
+  redis:
+    container_name: easy-write-service-redis
+    image: redis:latest
+#    ports:
+#      - "63798:6379"
+    restart: always
+    volumes:
+      - ./redis_data:/data
+
+# web panel see http://localhost:19001/, password: minio_config/access_key and minio_config/secret_key
+#  minio:
+#    container_name: minio
+#    image: minio/minio:latest
+#    restart: always
+#    ports:
+#      - "19000:9000"
+#      - "19001:9001"
+#    volumes:
+#      - ./minio_data:/data
+#    environment:
+#      - MINIO_ACCESS_KEY_FILE=/run/secrets/access_key
+#      - MINIO_SECRET_KEY_FILE=/run/secrets/secret_key
+#      - CONSOLE_SUBPATH=/
+#      - MINIO_BROWSER_REDIRECT_URL=http://localhost:19000
+#    command: [ "server", "/data", "--console-address", ":9001"]
+#    secrets:
+#      - access_key
+#      - secret_key
+
+#secrets:
+#  access_key:
+#    file: ./minio_config/access_key
+#  secret_key:
+#    file: ./minio_config/secret_key
+
