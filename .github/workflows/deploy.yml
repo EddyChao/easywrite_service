@@ -19,11 +19,17 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Sanitize Registry URL (remove protocol)
+      - name: Sanitize Registry URL (remove protocol if present)
         env:
           REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
         run: |
-          SANITIZED_REGISTRY_URL=${REGISTRY_URL#https://}  # Remove https:// from the registry URL
+          # Remove protocol if it's present (https:// or http://)
+          SANITIZED_REGISTRY_URL=${REGISTRY_URL}
+          if [[ "$REGISTRY_URL" == https://* ]]; then
+            SANITIZED_REGISTRY_URL=${REGISTRY_URL#https://}
+          elif [[ "$REGISTRY_URL" == http://* ]]; then
+            SANITIZED_REGISTRY_URL=${REGISTRY_URL#http://}
+          fi
           echo "SANITIZED_REGISTRY_URL=$SANITIZED_REGISTRY_URL" >> $GITHUB_ENV  # Save it to GITHUB_ENV so it's available in the next steps
 
       - name: Log in to Docker Registry
