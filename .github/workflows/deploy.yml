@@ -1,7 +1,7 @@
 name: Docker Build and Push
 # DOCKER_USERNAME
 # DOCKER_PASSWORD
-# DOCKER_REGISTER_URL
+# DOCKER_REGISTRY_URL
 
 on:
   push:
@@ -33,6 +33,6 @@ jobs:
       - name: Build and Push Docker image
         run: |
           docker buildx build --platform linux/amd64 \
-            -t ${{ secrets.DOCKER_REGISTER_URL }}/easywrite-service:$TAG \
-            -t ${{ secrets.DOCKER_REGISTER_URL }}/easywrite-service:latest \
+            -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG \
+            -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest \
             --push -f docker/Dockerfile .
