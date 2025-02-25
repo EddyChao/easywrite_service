@@ -3,13 +3,13 @@ version: '3'
 services:
   mariadb:
     image: mariadb:latest
-    container_name: easy-write-service-mariadb
+    container_name: easywrite-service-mariadb
     restart: always
     #    ports:
     #      - "33066:3306"
     environment:
-      MYSQL_DATABASE: easy-write
-      MYSQL_USER: easy-write
+      MYSQL_DATABASE: easywrite
+      MYSQL_USER: easywrite
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:

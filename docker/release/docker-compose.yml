@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  easywrite-network:
+    driver: bridge
+
 services:
   easywrite-service:
     image: easywrite-service
@@ -13,24 +17,35 @@ services:
       - "10010:10010"
     volumes:
       - ./service_config.json5:/etc/config/service_config.json5
-      - ./upload:/easy-write/upload
+      - ./upload:/app/easywrite/upload
     depends_on:
       - mariadb
       - redis
+      - wait-for-db
+    networks:
+      - easywrite-network
+
+  wait-for-db:
+    image: atkrad/wait4x
+    depends_on:
+      - mariadb
+    command: tcp mariadb:3306 -t 30s -i 250ms
+    networks:
+      - easywrite-network
 
   mariadb:
     image: mariadb:latest
     container_name: easywrite-service-mariadb
     restart: always
-    #    ports:
-    #      - "33066:3306"
     environment:
-      MYSQL_DATABASE: easy-write
-      MYSQL_USER: easy-write
-      MYSQL_PASSWORD: 123456
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: easywrite
+      MYSQL_USER: easywrite
+      MYSQL_PASSWORD: RW2o9cVCPF62Q96BdXHb
+      MYSQL_ROOT_PASSWORD: RW2o9cVCPF62Q96BdXHb
     volumes:
       - ./mariadb_data:/var/lib/mysql
+    networks:
+      - easywrite-network
 
   redis:
     container_name: easywrite-service-redis
@@ -38,4 +53,5 @@ services:
     restart: always
     volumes:
       - ./redis_data:/data
-
+    networks:
+      - easywrite-network

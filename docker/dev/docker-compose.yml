@@ -1,28 +1,44 @@
 version: '3'
 
+networks:
+  easywrite-network:
+    driver: bridge
+
 services:
   mariadb:
     image: mariadb:latest
-    container_name: easy-write-service-mariadb
+    container_name: easywrite-service-mariadb
     restart: always
 #    ports:
 #      - "33066:3306"
     environment:
-      MYSQL_DATABASE: easy-write
-      MYSQL_USER: easy-write
+      MYSQL_DATABASE: easywrite
+      MYSQL_USER: easywrite
       MYSQL_PASSWORD: 123456
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
       - ./mariadb_data:/var/lib/mysql
+    networks:
+      - easywrite-network
+
+  wait-for-db:
+    image: atkrad/wait4x
+    depends_on:
+      - mariadb
+    command: tcp mariadb:3306 -t 30s -i 250ms
+    networks:
+      - easywrite-network
 
   redis:
-    container_name: easy-write-service-redis
+    container_name: easywrite-service-redis
     image: redis:latest
 #    ports:
 #      - "63798:6379"
     restart: always
     volumes:
       - ./redis_data:/data
+    networks:
+      - easywrite-network
 
 # web panel see http://localhost:19001/, password: minio_config/access_key and minio_config/secret_key
 #  minio:

@@ -3,18 +3,18 @@
     "host": "0.0.0.0",
     "port": 10010,
     "base_url": "http://localhost:10010",
-    "upload_dir": "/easy-write/upload",
+    "upload_dir": "/app/easywrite/upload",
     "mysql_config": {
-        "user": "root",
+        "user": "easywrite",
         "password": "RW2o9cVCPF62Q96BdXHb",
         "host": "mariadb",
         "port": 3306,
-        "database": "easy-write"
+        "database": "easywrite"
     },
     "redis_config": {
         "host": "redis",
         "port": 6379,
-        "password": "rnXEjaPvURtrHfhfe9jt",
+        "password": "",
         "database": 0
     },
     "email_config": {
