@@ -28,7 +28,11 @@ jobs:
 
       - name: Get Git Tag
         id: get_tag
-        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+        run: |
+          TAG=$(git describe --tags --abbrev=0 | tr -d '\n')
+          TAG=$(echo $TAG | tr -c 'a-zA-Z0-9._-' '-')  # Sanitize invalid characters
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "Using TAG: $TAG"
 
       - name: Build and Push Docker image
         run: |
