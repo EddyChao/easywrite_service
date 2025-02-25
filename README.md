@@ -16,6 +16,9 @@
 
 ## 配置文件名模板在 [service_config_tmplate.json5](docker%2Fdev%2Fservice_config_tmplate.json5)
 
+## API 文档
+启动后打开 [http://127.0.0.1:10010/swagger/](http://127.0.0.1:10010/swagger/)，输入配置文件里面设置的账号密码即可，生产环境建议修改此账号密码
+
 ## 主函数在 main.go
 ```shell
 ./easywrite_service -g #生成模板配置文件
