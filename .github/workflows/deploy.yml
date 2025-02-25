@@ -8,6 +8,9 @@ on:
     tags:
       - "*"
 
+env:
+  REGISTRY_URL: ${REGISTRY_URL}
+  
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -32,13 +35,13 @@ jobs:
 
       - name: Build Docker image with version tag
         run: |
-          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG -f docker/Dockerfile .
+          docker buildx build --platform linux/amd64 -t ${REGISTRY_URL}/easywrite-service:$TAG -f docker/Dockerfile .
 
       - name: Tag Docker image as latest
         run: |
-          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest
+          docker tag ${REGISTRY_URL}/easywrite-service:$TAG ${REGISTRY_URL}/easywrite-service:latest
 
       - name: Push Docker images
         run: |
-          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG
-          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest
+          docker push ${REGISTRY_URL}/easywrite-service:$TAG
+          docker push ${REGISTRY_URL}/easywrite-service:latest
