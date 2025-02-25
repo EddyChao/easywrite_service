@@ -3,3 +3,4 @@
 /postgres_data/
 /redis_data/
 /service_config.json5
+/upload/

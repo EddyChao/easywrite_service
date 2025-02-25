@@ -1,5 +1,6 @@
 /minio_data/
+/mariadb_data/
 /postgres_data/
 /redis_data/
 /service_config.json5
-/mariadb_data/
+/upload/
