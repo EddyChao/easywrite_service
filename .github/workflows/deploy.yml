@@ -9,7 +9,7 @@ on:
       - "*"
 
 env:
-  REGISTRY_URL: ${REGISTRY_URL}
+  REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
   
 jobs:
   build-and-push:
