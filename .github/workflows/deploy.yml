@@ -28,19 +28,20 @@ jobs:
 
       - name: Get Git Tag
         id: get_tag
-        run: |
-          # Retrieve the latest Git tag and remove newlines
-          TAG=$(git describe --tags --abbrev=0 | tr -d '\n')
-          # Sanitize: replace any invalid character with a hyphen
-          TAG=$(echo $TAG | tr -c 'a-zA-Z0-9._-' '-')
-          # Remove trailing hyphen if present
-          TAG=${TAG%-}
-          echo "TAG=$TAG" >> $GITHUB_ENV
-          echo "Using TAG: $TAG"
+        run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
-      - name: Build and Push Docker image
+      - name: Build Docker image with version tag
         run: |
           docker buildx build --platform linux/amd64 \
             -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG \
-            -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest \
-            --push -f docker/Dockerfile .
+            --load -f docker/Dockerfile .
+
+      - name: Tag Docker image as latest
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG \
+                     ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest
+
+      - name: Push Docker images
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest
