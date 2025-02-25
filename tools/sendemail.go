@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"gopkg.in/gomail.v2"
+	"github.com/wneessen/go-mail"
 )
 
 type EmailConfig struct {
@@ -10,6 +10,8 @@ type EmailConfig struct {
 	SMTPHost     string `json:"host"`
 	SMTPPort     int    `json:"smtp_port"`
 	FromAddress  string `json:"from_address"`
+	DisplayName  string `json:"display_name"`
+	UseSSL       bool   `json:"use_ssl"`
 }
 
 var (
@@ -20,17 +22,31 @@ func InitEmail(config EmailConfig) {
 	emailConfig = config
 }
 
-func SendEmail(m *gomail.Message) error {
-	m.SetHeader("From", emailConfig.FromAddress)
+func SendEmail(m *mail.Msg) error {
+	if err := m.FromFormat(emailConfig.DisplayName, emailConfig.FromAddress); err != nil {
+		return err
+	}
 
-	d := gomail.NewDialer(emailConfig.SMTPHost, emailConfig.SMTPPort, emailConfig.SMTPUsername, emailConfig.SMTPPassword)
-	return d.DialAndSend(m)
+	options := []mail.Option{
+		mail.WithPort(emailConfig.SMTPPort), mail.WithSMTPAuth(mail.SMTPAuthPlain),
+		mail.WithUsername(emailConfig.SMTPUsername), mail.WithPassword(emailConfig.SMTPPassword),
+	}
+	if emailConfig.UseSSL {
+		options = append(options, mail.WithSSLPort(true))
+	}
+	c, err := mail.NewClient(emailConfig.SMTPHost, options...)
+	if err != nil {
+		return err
+	}
+	return c.DialAndSend(m)
 }
 
 func SendCodeToEmail(to string, body string) error {
-	m := gomail.NewMessage()
-	m.SetHeader("To", to)
-	m.SetHeader("Subject", "验证码")
-	m.SetBody("text/plain", body)
+	m := mail.NewMsg()
+	if err := m.To(to); err != nil {
+		return err
+	}
+	m.Subject("验证码")
+	m.SetBodyString(mail.TypeTextPlain, body)
 	return SendEmail(m)
 }

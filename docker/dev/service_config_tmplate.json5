@@ -20,11 +20,13 @@
         "database": 0
     },
     "email_config": {
-        "username": "xxx@xxx.com",
-        "password": "xxx",
-        "host": "smtp.xxx.com",
+        "username": "your_email@example.com",
+        "password": "your_email_password",
+        "host": "smtp.example.com",
         "smtp_port": 587,
-        "from_address": "xxx@xxx.com"
+        "from_address": "your_email@example.com",
+        "display_name": "官方邮件",
+        "use_ssl": true
     },
     "openai_config": {
         "key": "",//
