@@ -1,5 +1,10 @@
 # 简单记账后端
 
+## 使用 Docker Compose 部署
+1. 构建 Docker 镜像，在项目根目录下执行`docker buildx build --platform linux/amd64 -t easywrite-service -f docker/Dockerfile .`，如果你是 MacOS 苹果硅芯片，请将平台替换为`linux/arm64`
+2. 拷贝`docker/release/docker-compose.yml`文件并根据你的实际情况修改它，然后`docker-compose up -d`或者`docker compose up -d`启动它
+3. 默认端口为`10010`, 可根据需要修改，推荐使用 `Caddy` 等此类Web网关反向代理到 `10010` 端口
+
 ## 编译
 ```shell
  $env:GOOS="linux" ; $env:GOARCH="arm64" ; go build -o easywrite_service cmd/main.go
