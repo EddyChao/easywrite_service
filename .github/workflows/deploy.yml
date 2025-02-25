@@ -29,8 +29,12 @@ jobs:
       - name: Get Git Tag
         id: get_tag
         run: |
+          # Retrieve the latest Git tag and remove newlines
           TAG=$(git describe --tags --abbrev=0 | tr -d '\n')
-          TAG=$(echo $TAG | tr -c 'a-zA-Z0-9._-' '-')  # Sanitize invalid characters
+          # Sanitize: replace any invalid character with a hyphen
+          TAG=$(echo $TAG | tr -c 'a-zA-Z0-9._-' '-')
+          # Remove trailing hyphen if present
+          TAG=${TAG%-}
           echo "TAG=$TAG" >> $GITHUB_ENV
           echo "Using TAG: $TAG"
 
