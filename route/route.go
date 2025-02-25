@@ -18,7 +18,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func Run(host string, port int) {
+func Run(host string, port int, swaggerUsername string, swaggerPassword string) {
 	r := gin.Default()
 	gin.SetMode(gin.DebugMode)
 	r.Use(func(c *gin.Context) {
@@ -26,7 +26,7 @@ func Run(host string, port int) {
 			c.Next()
 			log.Println(c.Writer.Header())*/
 	})
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	r.GET("/swagger/*any", SwaggerMiddleware(swaggerUsername, swaggerPassword), ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.Static(common.UploadDir, common.UploadSavePath)
 	accountRouter := r.Group("/account")

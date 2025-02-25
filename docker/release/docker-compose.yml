@@ -21,15 +21,6 @@ services:
     depends_on:
       - mariadb
       - redis
-      - wait-for-db
-    networks:
-      - easywrite-network
-
-  wait-for-db:
-    image: atkrad/wait4x
-    depends_on:
-      - mariadb
-    command: tcp mariadb:3306 -t 30s -i 250ms
     networks:
       - easywrite-network
 

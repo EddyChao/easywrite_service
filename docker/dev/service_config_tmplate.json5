@@ -4,6 +4,8 @@
     "port": 10010,
     "base_url": "http://localhost:10010",
     "upload_dir": "/app/easywrite/upload",
+    "swagger_username": "root",
+    "swagger_password": "her5g787844515safvFAEWF",
     "mysql_config": {
         "user": "easywrite",
         "password": "RW2o9cVCPF62Q96BdXHb",

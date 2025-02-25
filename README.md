@@ -14,6 +14,8 @@
  $env:GOOS="linux" ; $env:GOARCH="amd64" ; go build -o easywrite_service  ./main.go
 ```
 
+## 配置文件名模板在 [service_config_tmplate.json5](docker%2Fdev%2Fservice_config_tmplate.json5)
+
 ## 主函数在 main.go
 ```shell
 ./easywrite_service -g #生成模板配置文件

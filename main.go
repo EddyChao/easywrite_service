@@ -25,6 +25,8 @@ type ServiceConfig struct {
 	Port               int                        `json:"port"`
 	BaseUrl            string                     `json:"base_url"`
 	UploadDir          string                     `json:"upload_dir"`
+	SwaggerUsername    string                     `json:"swagger_username"`
+	SwaggerPassword    string                     `json:"swagger_password"`
 	MysqlConfig        db.MysqlConfig             `json:"mysql_config"`
 	RedisConfig        db.RedisConfig             `json:"redis_config"`
 	EmailConfig        tools.EmailConfig          `json:"email_config"`
@@ -147,5 +149,5 @@ func main() {
 	tencent.InitTencentCloudConfig(config.TencentCloudConfig)
 	proxy.InitCustomProxy(config.CustomProxyConfig)
 	bill.InitBaseUrl(config.BaseUrl)
-	route.Run(config.Host, config.Port)
+	route.Run(config.Host, config.Port, config.SwaggerUsername, config.SwaggerPassword)
 }
