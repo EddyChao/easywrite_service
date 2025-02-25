@@ -32,14 +32,11 @@ jobs:
 
       - name: Build Docker image with version tag
         run: |
-          docker buildx build --platform linux/amd64 \
-            -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG \
-            --load -f docker/Dockerfile .
+          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG -f docker/Dockerfile .
 
       - name: Tag Docker image as latest
         run: |
-          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG \
-                     ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest
 
       - name: Push Docker images
         run: |
