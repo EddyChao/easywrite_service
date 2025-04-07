@@ -31,8 +31,10 @@ jobs:
         run: echo "TAG=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Build and Push Docker image with version tag and latest
-        run: |
-          docker buildx build --platform linux/amd64 \
-            -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:$TAG \
-            -t ${{ secrets.DOCKER_REGISTRY_URL }}/easywrite-service:latest \
-            --push -f docker/Dockerfile .
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/easywrite-service:${{ env.TAG }}
+            ${{ env.REGISTRY }}/easywrite-service:latest
