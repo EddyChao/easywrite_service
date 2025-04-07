@@ -37,4 +37,4 @@ jobs:
           file: docker/Dockerfile
           push: true
           tags: |
-            AloneDuck/easywrite-service:latest
+            docker.io/1403774697/easywrite-service:latest
