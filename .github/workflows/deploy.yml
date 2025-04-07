@@ -36,5 +36,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/easywrite-service:${{ env.TAG }}
-            ${{ env.REGISTRY }}/easywrite-service:latest
+            AloneDuck/easywrite-service:latest
